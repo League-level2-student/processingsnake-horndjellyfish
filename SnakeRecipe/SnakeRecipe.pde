@@ -2,7 +2,6 @@
 // 1. Follow the recipe instructions inside the Segment class.
 
 // The Segment class will be used to represent each part of the moving snake.
-
 class Segment {
 
   //2. Create x and y member variables to hold the location of each segment.
@@ -92,6 +91,7 @@ void drawFood() {
 }
 
 
+
 //14. Draw the snake head (use a 10 by 10 rectangle)
 
 void drawSnake() {
@@ -155,16 +155,16 @@ void keyPressed() {
 // 19. check if your head is out of bounds (teleport your snake head to the other side).
 
 void checkBoundaries() {
-  if (snakeX == 0) {
+  if (snakeX <= 0) {
     snakeX = 490;
   }
-  if (snakeX == 500) {
+  if (snakeX >= 500) {
     snakeX = 10;
   }
-  if (snakeY == 0) {
+  if (snakeY <= 0) {
     snakeY = 490;
   }
-  if (snakeY == 500) {
+  if (snakeY >= 500) {
     snakeY = 10;
   }
 }
@@ -179,9 +179,12 @@ void checkBoundaries() {
 
 void collision() {
   System.out.println("snakeX: " + snakeX);
-  if (snakeX == foodX) {
-    
+  System.out.println("foodX: " + foodX);
+  if ((snakeX >= foodX-5 && snakeX <= foodX+15 && snakeY >= foodY-5 && snakeY <= foodY+15)) {
     foodEaten = foodEaten + 1;
+    textSize(20);
+    fill(255, 255, 255);
+    text("score: " + foodEaten, 480, 480);
     System.out.println("food eaten: " + foodEaten);
     foodX = ((int)random(500));
     foodY = ((int)random(500));
@@ -189,6 +192,7 @@ void collision() {
   }
   // If the segment is colliding with a piece of food...
   // Increase the amount of food eaten and set foodX and foodY to new random locations.
+  
 }
 
 
