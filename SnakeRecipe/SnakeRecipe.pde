@@ -74,9 +74,8 @@ void draw() {
 
 
   //12. Call the manageTail, drawFood, drawSnake, move, and collision methods.
- if (snakeX >= foodX-5 && snakeX <= foodX+15 && snakeY >= foodY-5 && snakeY <= foodY+15) {
+
   manageTail();
- }
   drawFood();
   drawSnake();
   move();
@@ -138,16 +137,31 @@ void move() {
 // 18. Complete the keyPressed method below. Use if statements to set your direction variable depending on what key is pressed.
 
 void keyPressed() {
-  if (keyCode == UP) {
+  if (segs.size() > 0) { //when i have a tail...
+    if (direction == "up" && keyCode == DOWN) {
+      direction = "up";
+    } else if (direction == "down" && keyCode == UP) {
+      direction = "down";
+    } else if (direction == "right" && keyCode == LEFT) {
+      direction = "right";
+    } else if (direction == "left" && keyCode == RIGHT) {
+      direction = "left";
+    } else if (keyCode == UP) {
+      direction = "up";
+    } else if (keyCode == DOWN) {
+      direction = "down";
+    } else if (keyCode == LEFT) {
+      direction = "left";
+    } else if (keyCode == RIGHT) {
+      direction = "right";
+    }
+  } else if (keyCode == UP) {
     direction = "up";
-  }
-  if (keyCode == DOWN) {
+  } else if (keyCode == DOWN) {
     direction = "down";
-  }
-  if (keyCode == LEFT) {
+  } else if (keyCode == LEFT) {
     direction = "left";
-  }
-  if (keyCode == RIGHT) {
+  } else if (keyCode == RIGHT) {
     direction = "right";
   }
 }
@@ -211,6 +225,7 @@ ArrayList<Segment> segs = new ArrayList();
 void manageTail() {
 
   //Call the drawTail and checkTailCollision methods.
+  //System.out.println("calling drawTail");
   drawTail();
   checkTailCollision();
   // Add a new Segment to your ArrayList that has the same X and Y as the head of your snake.
@@ -225,9 +240,11 @@ void manageTail() {
 
 void drawTail() {
   // Draw a 10 by 10 rectangle for each Segment in your snake ArrayList.
-  for (Segment mySeg:segs) {
+  System.out.println("Segments: " + segs.size());
+  for (Segment mySeg : segs) {
     fill(0, 255, 0);
     rect(mySeg.getX(), mySeg.getY(), 10, 10);
+    System.out.println(mySeg.getX() + ", " + mySeg.getY());
   }
 }
 
@@ -238,8 +255,10 @@ void checkTailCollision() {
 
   // If your head has the same location as one of your segments...
   for (Segment mySeg : segs) {
-    if (mySeg.getX() >= snakeX+10 && mySeg.getY() >= snakeY+10) {
+    if (mySeg.getX() >= snakeX  && mySeg.getX() <= snakeX+10 && mySeg.getY() <= snakeY+10 && mySeg.getY() >= snakeY) {
       foodEaten = 0;
+      System.out.println("foodEaten: " + foodEaten);
+      System.out.println("Segments: " + segs.size());
     }
   }
   // reset your food variable
