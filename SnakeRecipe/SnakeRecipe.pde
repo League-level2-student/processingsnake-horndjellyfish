@@ -49,24 +49,20 @@ int foodY = ((int)random(500));
 //int foodX = ((int)random(50)*10);
 
 
-
+final int SIZE = 10;
 void setup() {
 
   // 9. Set the size of your sketch (500 by 500).
 
   size(500, 500);
-
+  frameRate(20);
 
   // 10. initialize your head to a new segment.
 }
 
 // 11. Use the frameRate(int rate) method to set the rate to 20.
 
-int rate;
-int frameRate(int rate) {
-  this.rate = rate;
-  return rate = 20;
-}
+
 
 void draw() {
 
@@ -88,7 +84,7 @@ void draw() {
 
 void drawFood() {
   fill(255, 0, 0);
-  rect(foodX, foodY, 10, 10);
+  rect(foodX, foodY, SIZE, SIZE);
 }
 
 
@@ -97,7 +93,7 @@ void drawFood() {
 
 void drawSnake() {
   fill(0, 255, 0);
-  rect(snakeX, snakeY, 10, 10);
+  rect(snakeX, snakeY, SIZE, SIZE);
 
   //test your code
 }
@@ -113,16 +109,16 @@ void move() {
 
   switch(direction) {
   case "up":
-    snakeY = snakeY - 3;
+    snakeY = snakeY - 10;
     break;
   case "down":
-    snakeY = snakeY + 3;
+    snakeY = snakeY + 10;
     break;
   case "left":
-    snakeX = snakeX - 3; 
+    snakeX = snakeX - 10; 
     break;
   case "right":
-    snakeX = snakeX + 3; 
+    snakeX = snakeX + 10; 
     break;
   }
 
@@ -243,7 +239,7 @@ void drawTail() {
   System.out.println("Segments: " + segs.size());
   for (Segment mySeg : segs) {
     fill(0, 255, 0);
-    rect(mySeg.getX(), mySeg.getY(), 10, 10);
+    rect(mySeg.getX(), mySeg.getY(), SIZE, SIZE);
     System.out.println(mySeg.getX() + ", " + mySeg.getY());
   }
 }
@@ -255,7 +251,7 @@ void checkTailCollision() {
 
   // If your head has the same location as one of your segments...
   for (Segment mySeg : segs) {
-    if (mySeg.getX() >= snakeX  && mySeg.getX() <= snakeX+10 && mySeg.getY() <= snakeY+10 && mySeg.getY() >= snakeY) {
+    if (mySeg.getX() == snakeX  && mySeg.getX() == snakeX && mySeg.getY() == snakeY && mySeg.getY() == snakeY) {
       foodEaten = 0;
       System.out.println("foodEaten: " + foodEaten);
       System.out.println("Segments: " + segs.size());
